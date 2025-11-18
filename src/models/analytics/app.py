@@ -1,5 +1,7 @@
 import pandas as pd
 from src.models.models.linear import LinearModel
+from src.models.models.randomforest import RandomForestModel
+from src.models.models.prophet import ProphetModel
 
 class Analytics:
     def __init__(self):
@@ -18,7 +20,7 @@ class Analytics:
         df["date_ordinal"] = df.index.map(lambda date: date.toordinal())
         X = df[["date_ordinal"]]
         y = df["Close"]
-        model = LinearModel()
+        model = ProphetModel()
         model.train(X, y)
         # Get the last date from your DataFrame
         last_date = df.index.max()
@@ -37,5 +39,5 @@ class Analytics:
 
     def run(self):
         df = self.importData()
-        df = self.predict(df, 30)
+        df = self.predict(df, 5)
         print(df)
